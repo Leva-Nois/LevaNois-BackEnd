@@ -33,6 +33,14 @@ CREATE TABLE IF NOT EXISTS Instituicao (
     FOREIGN KEY (idioma_id) REFERENCES Idioma(idioma_id) ON DELETE CASCADE
 );
 
+-- Tabela Trabalho
+CREATE TABLE IF NOT EXISTS Trabalho (
+    trabalho_id INT AUTO_INCREMENT PRIMARY KEY,
+    cargo VARCHAR(100) NOT NULL,
+    nome_empresa VARCHAR (30),
+    salario DECIMAL(10,2) NOT NULL
+);
+
 -- Tabela Parentes_Convivio
 CREATE TABLE IF NOT EXISTS Parentes_Convivio (
     parentes_convivio_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -40,14 +48,6 @@ CREATE TABLE IF NOT EXISTS Parentes_Convivio (
     grau_parentesco VARCHAR(50) NOT NULL,
     trabalho_id INT,  -- Referência ao trabalho do parente
     FOREIGN KEY (trabalho_id) REFERENCES Trabalho(trabalho_id) ON DELETE SET NULL
-);
-
--- Tabela Trabalho
-CREATE TABLE IF NOT EXISTS Trabalho (
-    trabalho_id INT AUTO_INCREMENT PRIMARY KEY,
-    cargo VARCHAR(100) NOT NULL,
-    nome_empresa VARCHAR (30),
-    salario DECIMAL(10,2) NOT NULL
 );
 
 -- Tabelas de Trilha e Atividades
@@ -69,6 +69,23 @@ CREATE TABLE IF NOT EXISTS Atividade (
     duracao_estimada INT NOT NULL, -- Em minutos
     tipo_atividade ENUM('Vídeo', 'Artigo', 'Quiz', 'Prática') NOT NULL,
     FOREIGN KEY (trilha_id) REFERENCES Trilha(trilha_id) ON DELETE CASCADE
+);
+
+-- Tabela de Usuários
+CREATE TABLE IF NOT EXISTS Usuario (
+    usuario_id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    pais_interesse INT NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    data_nascimento DATE NOT NULL,
+    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status_usuario ENUM('Ativo', 'Inativo', 'Em Trilha') NOT NULL,
+    trabalho_id INT,
+    parentes_convivio_id INT,
+    FOREIGN KEY (pais_interesse) REFERENCES Pais(pais_id) ON DELETE CASCADE,
+    FOREIGN KEY (trabalho_id) REFERENCES Trabalho(trabalho_id) ON DELETE CASCADE,
+    FOREIGN KEY (parentes_convivio_id) REFERENCES Parentes_Convivio(parentes_convivio_id) ON DELETE CASCADE
 );
 
 -- Progresso do Usuário
@@ -93,22 +110,4 @@ CREATE TABLE IF NOT EXISTS ProgressoAtividade (
     data_conclusao DATETIME,
     FOREIGN KEY (usuario_id) REFERENCES Usuario(usuario_id) ON DELETE CASCADE,
     FOREIGN KEY (atividade_id) REFERENCES Atividade(atividade_id) ON DELETE CASCADE
-);
-
--- Tabela de Usuários
-CREATE TABLE IF NOT EXISTS Usuario (
-    usuario_id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    pais_interesse INT NOT NULL,
-    senha VARCHAR(255) NOT NULL,
-    celular VARCHAR(15) NOT NULL,
-    data_nascimento DATE NOT NULL,
-    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status_usuario ENUM('Ativo', 'Inativo', 'Em Trilha') NOT NULL,
-    trabalho_id INT,
-    parentes_convivio_id INT,
-    FOREIGN KEY (pais_interesse) REFERENCES Pais(pais_id) ON DELETE CASCADE,
-    FOREIGN KEY (trabalho_id) REFERENCES Trabalho(trabalho_id) ON DELETE CASCADE,
-    FOREIGN KEY (parentes_convivio_id) REFERENCES Parentes_Convivio(parentes_convivio_id) ON DELETE CASCADE
 );
