@@ -7,30 +7,31 @@ public class Pais {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer paisId;
+    @Column(nullable = false, name = "pais_id")
+    private Long paisId;
 
-    @Column(nullable = false, length = 50)
-    private String nome;
+    @Column(nullable = false, length = 50, name = "nome_pais")
+    private String nomePais;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 3, name = "codigo_iso")
     private Character codigoIso;
 
     // Getters e Setters
 
-    public Integer getPaisId() {
+    public Long getPaisId() {
         return paisId;
     }
 
-    public void setPaisId(Integer paisId) {
+    public void setPaisId(Long paisId) {
         this.paisId = paisId;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomePais() {
+        return nomePais;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomePais(String nomePais) {
+        this.nomePais = nomePais;
     }
 
     public Character getCodigoIso() {
