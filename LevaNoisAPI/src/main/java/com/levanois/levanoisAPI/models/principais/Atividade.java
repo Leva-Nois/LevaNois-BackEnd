@@ -24,7 +24,7 @@ public class Atividade {
     private Integer duracaoAtividade;
 
     public enum TipoAtividade {
-        VIDEO, QUIZ, ARTIGO, PRATICA, OUTRO
+        Video, Artigo, Quiz, Pratica, Outro
     }
 
     @Enumerated(EnumType.STRING)

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class Instituicao {
 
     public enum TipoInstituicao {
-        ESCOLA_DE_IDIOMAS, CENTRO_CULTURAL, FACULDADE, OUTRO;
+        Escola_de_Idiomas, Centro_Cultural, Faculdade, Outro;
     }
 
     public enum SituacaoInstituicao {
@@ -18,7 +18,7 @@ public class Instituicao {
     }
 
     public enum TipoFormacao {
-        MBA, GRADUACAO, POS_GRADUACAO, MESTRADO, DOUTORADO, OUTRO;
+        Graduacao, Pos_Graduacao, Mestrado, Doutorado, Outro;
     }
 
     @Id

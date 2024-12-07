@@ -1,5 +1,7 @@
 package com.levanois.levanoisAPI.models.usuario;
 
+
+import com.levanois.levanoisAPI.converters.StatusUsuarioConverter;
 import com.levanois.levanoisAPI.models.auxiliares.Pais;
 import com.levanois.levanoisAPI.models.principais.ParentesConvivio;
 import com.levanois.levanoisAPI.models.principais.Trabalho;
@@ -38,19 +40,41 @@ public class Usuario {
     @JoinColumn(name = "trabalho_id", nullable = false)
     private Trabalho trabalhoId;
 
-    @ManyToOne
-    @JoinColumn(name = "parentes_convivio_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "parentes_convivio_id")
     private ParentesConvivio parentesConvivioId;
 
     @ManyToOne
     @JoinColumn(name = "pais_id")
     private Pais paisInteresseId;
 
+    // Enum ajustado com mapeamento explícito para o banco
     public enum StatusUsuario {
-        ATIVO, INATIVO, EM_TRILHA
+        ATIVO("Ativo"),
+        INATIVO("Inativo"),
+        EM_TRILHA("Em Trilha");
+
+        private final String value;
+
+        StatusUsuario(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public static StatusUsuario fromValue(String value) {
+            for (StatusUsuario status : StatusUsuario.values()) {
+                if (status.value.equalsIgnoreCase(value)) {
+                    return status;
+                }
+            }
+            throw new IllegalArgumentException("Valor inválido para StatusUsuario: " + value);
+        }
     }
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = StatusUsuarioConverter.class)
     @Column(name = "status_usuario", nullable = false)
     private StatusUsuario statusUsuario;
 

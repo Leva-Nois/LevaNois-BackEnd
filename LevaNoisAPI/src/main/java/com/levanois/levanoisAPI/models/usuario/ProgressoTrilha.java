@@ -29,7 +29,7 @@ public class ProgressoTrilha {
     private Integer totalEtapas;
 
     public enum SituacaoTrilha {
-        EM_ANDAMENTO, CONCLUIDA
+        CONCLUIDA, EM_ANDAMENTO
     }
 
     @Enumerated(EnumType.STRING)
