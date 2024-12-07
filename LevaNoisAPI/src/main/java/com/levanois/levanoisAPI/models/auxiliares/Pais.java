@@ -14,7 +14,7 @@ public class Pais {
     private String nomePais;
 
     @Column(nullable = false, unique = true, length = 3, name = "codigo_iso")
-    private Character codigoIso;
+    private String codigoIso;
 
     // Getters e Setters
 
@@ -34,11 +34,11 @@ public class Pais {
         this.nomePais = nomePais;
     }
 
-    public Character getCodigoIso() {
+    public String getCodigoIso() {
         return codigoIso;
     }
 
-    public void setCodigoIso(Character codigoIso) {
+    public void setCodigoIso(String codigoIso) {
         this.codigoIso = codigoIso;
     }
 }

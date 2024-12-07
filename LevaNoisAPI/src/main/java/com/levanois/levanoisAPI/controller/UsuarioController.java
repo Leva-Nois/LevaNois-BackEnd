@@ -3,11 +3,11 @@ package com.levanois.levanoisAPI.controller;
 import com.levanois.levanoisAPI.models.usuario.Usuario;
 import com.levanois.levanoisAPI.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,10 +27,9 @@ public class UsuarioController {
 
     @CrossOrigin
     @GetMapping("/id/{id}")
-    public Optional<Usuario> encontrarUsuarioPorId(Long id) {
-        return dbConnection.findById(id);
+    public List<Usuario> listarUsuarioPorId(@PathVariable Long id) {
+        return dbConnection.findAllById(Collections.singleton(id));
     }
-
 
 
     // TODO: Implementar os métodos de inserção, atualização e remoção de usuários (CRUD). E outros controllers necessários.
