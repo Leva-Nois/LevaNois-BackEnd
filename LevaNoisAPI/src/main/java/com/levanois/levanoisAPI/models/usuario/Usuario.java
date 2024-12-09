@@ -37,7 +37,7 @@ public class Usuario {
     private Trilha trilhaId;
 
     @ManyToOne
-    @JoinColumn(name = "trabalho_id", nullable = false)
+    @JoinColumn(name = "trabalho_id")
     private Trabalho trabalhoId;
 
     @ManyToOne(fetch = FetchType.EAGER)

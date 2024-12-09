@@ -19,9 +19,12 @@ public class Trilha {
     private String descricaoTrilha;
 
     public enum TipoTrilha {
-        LINGUA, CULTURA, ESTUDO;
+        LINGUA, // 0
+        CULTURA, // 1
+        ESTUDO; // 2
     }
 
+    @Enumerated(EnumType.ORDINAL) // Mapeia o enum como números no banco (TINYINT)
     @Column(nullable = false, name = "tipo_trilha")
     private TipoTrilha tipoTrilha;
 
